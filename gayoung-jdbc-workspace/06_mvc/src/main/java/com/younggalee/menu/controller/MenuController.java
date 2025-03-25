@@ -1,5 +1,6 @@
 package com.younggalee.menu.controller;
 
+import com.younggalee.menu.model.dto.CategoryDto;
 import com.younggalee.menu.model.dto.MenuDto;
 import com.younggalee.menu.model.service.MenuService;
 import com.younggalee.menu.view.PrintResultView;
@@ -29,6 +30,10 @@ public class MenuController {
         return list;
     }
 
+    public List<CategoryDto> selectCategoryList(){
+        List<CategoryDto> list = menuService.selectCategoryList();
+        return list;
+    }
     public void registMenu(Map<String, String> requestParam){
         // MenuDto에 담음 >> DAO(insert)
         // 요청시 전달값을 [가공처리한 후] DTO 담기

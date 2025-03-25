@@ -5,6 +5,23 @@ public class MenuDto {
     private int menuPrice;
     private String category;
     private String orderableStatus;
+    private int menuCode;
+
+    public MenuDto(String menuName, int menuPrice, String category, String orderableStatus, int menuCode) {
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
+        this.category = category;
+        this.orderableStatus = orderableStatus;
+        this.menuCode = menuCode;
+    }
+
+    public int getMenuCode() {
+        return menuCode;
+    }
+
+    public void setMenuCode(int menuCode) {
+        this.menuCode = menuCode;
+    }
 
     public MenuDto(){}
 

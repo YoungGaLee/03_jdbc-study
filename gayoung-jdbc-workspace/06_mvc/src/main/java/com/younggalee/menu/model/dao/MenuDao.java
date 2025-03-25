@@ -1,5 +1,6 @@
 package com.younggalee.menu.model.dao;
 
+import com.younggalee.menu.model.dto.CategoryDto;
 import com.younggalee.menu.model.dto.MenuDto;
 
 import java.io.FileInputStream;
@@ -74,5 +75,40 @@ public class MenuDao {
         }
 
         return result;
+    }
+
+    public List<CategoryDto> selectAllCategory(Connection conn){
+        //select 문 >> 여러행조회 >> ResultSet >> List<MenuDao>
+        List<CategoryDto> list = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        String query = prop.getProperty("selectAllCategory");
+
+
+        //private int categoryCode;
+        //    private String categoryName;
+        //    private int refCategoryCode;
+
+        try {
+            pstmt = conn.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            while(rset.next()) {
+                list.add(new CategoryDto(
+                        rset.getInt("category_Code"),
+                        rset.getString("category_name"),
+                        rset.getInt("ref_category_code")
+                ));
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+
+        return list;
     }
 }

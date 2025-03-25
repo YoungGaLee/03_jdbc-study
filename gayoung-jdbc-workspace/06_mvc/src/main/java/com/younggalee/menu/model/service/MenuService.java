@@ -1,6 +1,7 @@
 package com.younggalee.menu.model.service;
 
 import com.younggalee.menu.model.dao.MenuDao;
+import com.younggalee.menu.model.dto.CategoryDto;
 import com.younggalee.menu.model.dto.MenuDto;
 
 import java.sql.Connection;
@@ -18,6 +19,13 @@ public class MenuService {
         return list;
     }
 
+    public List<CategoryDto> selectCategoryList(){
+        Connection conn = getConnection();
+        List<CategoryDto> list = menuDao.selectAllCategory(conn);
+        close(conn);
+        return list;
+    }
+
     public int registMenu(MenuDto menu){
         Connection conn = getConnection();
         int result = menuDao.insertMenu(conn, menu);
@@ -28,4 +36,8 @@ public class MenuService {
         }
         return result;
     }
+
+
+
+
 }
