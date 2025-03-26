@@ -5,6 +5,7 @@ import com.younggalee.menu.controller.MenuController;
 import com.younggalee.menu.model.dto.CategoryDto;
 import com.younggalee.menu.model.dto.MenuDto;
 import com.younggalee.order.controller.OrderController;
+import com.younggalee.order.model.dto.OrderDto;
 import com.younggalee.order.model.dto.OrderMenuDto;
 
 import java.util.*;
@@ -106,15 +107,36 @@ public class OrderView {
     }
 
     // 주문 내역 조회 서브 화면
-    public void orderHistoryView() {
-        //전체 주문 목록 조회해서 출력
-        // 주문번호, 주문날짜, 주문시간, 주문가격
+    public void orderHistoryView(){
 
-        //사용자에게 상세조회할 주문번호 입력받기
+        // 전체 주문 목록 조회해서 출력
+        // 주문번호, 주문날짜, 주문시간, 주문가격
+        List<OrderDto> orderList = orderController.selectOrderList();
+        for(OrderDto order : orderList){
+            System.out.println(order);
+        }
+
+        // 사용자에게 상세조회할 주문번호 입력받기
+        System.out.print("\n상세조회할 주문번호 입력: ");
+        String orderCode = sc.nextLine();
 
         // 해당 주문에 어떤 메뉴들이 주문되었는지 조회해보기
-        // 메뉴번호, 메뉴명, 메뉴가격, 카테고리명
+        // 메뉴번호, 메뉴명, 메뉴가격, 카테고리명, 주문수량
+        List<OrderMenuDto> list = orderController.selectOrderDetail(orderCode);
+        for(OrderMenuDto orderMenu : list){ // orderMenu{orderAmount:주문수량, menu:MenuDto객체{메뉴번호,메뉴명,카테고리,가격}}
+            System.out.println(orderMenu.getMenu() + ", 주문수량: " + orderMenu.getOrderAmount() + "개");
+        }
 
+    }
+
+    // 3. 메뉴 검색
+    //    검색할 메뉴명 입력받아서 해당 메뉴명과 일치하는 메뉴정보 조회
+    public void searchMenuForm(){
+        System.out.println("\n------- 검색창 -------");
+        System.out.print("검색할 메뉴명: ");
+        String search = sc.nextLine();
+
+        orderController.selectMenuByName(search);
     }
 }
 
